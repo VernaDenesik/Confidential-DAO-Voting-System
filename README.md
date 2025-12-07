@@ -6,6 +6,7 @@
 [![Solidity](https://img.shields.io/badge/Solidity-^0.8.24-blue)](https://soliditylang.org/)
 [![Hardhat](https://img.shields.io/badge/Hardhat-Ethereum-orange)](https://hardhat.org/)
 
+
 ## 🎯 Project Overview
 
 **Confidential DAO Voting System** is a privacy-preserving governance platform that demonstrates secure voting mechanisms for decentralized autonomous organizations. This project implements a cryptographic commit-reveal scheme to eliminate vote manipulation, prevent coercion, and ensure fair democratic decision-making in blockchain-based governance.
@@ -29,7 +30,7 @@ This system eliminates these vulnerabilities through cryptographic privacy guara
 
 **Duration**: 1 minute
 
-**Link**: [View Demo Video](./demo1.mp4)
+**Link**: [View Demo Video Confidential DAO Voting System.mp4](https://streamable.com/5d82ss)
 
 The demonstration video showcases:
 1. Complete voting lifecycle from proposal creation to execution
@@ -197,7 +198,7 @@ Sepolia testnet ETH (from faucet)
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/VernaDenesik/SecureDAOVoting.git
+git clone https://github.com/VernaDenesik/Confidential-DAO-Voting-System.git
 cd SecureDAOVoting
 ```
 
@@ -482,8 +483,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Contact & Support
 
-- **GitHub**: [VernaDenesik/SecureDAOVoting](https://github.com/VernaDenesik/SecureDAOVoting)
-- **Live Demo**: [https://secure-dao-voting.vercel.app/](https://secure-dao-voting.vercel.app/)
+- **GitHub**: [VernaDenesik/Confidential-DAO-Voting-System](https://github.com/VernaDenesik/Confidential-DAO-Voting-System)
+- **Live Demo**: [https://confidential-dao-voting-system.vercel.app/](https://confidential-dao-voting-system.vercel.app/)
 - **Documentation**: See `docs/` folder for detailed guides
 - **Issues**: Report bugs via GitHub Issues
 
