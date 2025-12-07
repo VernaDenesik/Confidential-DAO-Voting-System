@@ -1,0 +1,21 @@
+Confidential DAO Voting System - Video Narration Script
+
+Scene 1: Opening & Problem Statement
+
+Traditional blockchain voting systems have a critical flaw: they're completely transparent. This means votes can be bought, voters can be coerced, and early results manipulate later votes. We need a better solution.
+
+Scene 2: Commit-Reveal Mechanism Demo
+
+Introducing the commit-reveal voting mechanism. In phase one, voters submit an encrypted hash of their vote without revealing their actual choice. Only after voting ends can they reveal their decision with cryptographic proof. This guarantees privacy during voting and prevents manipulation.
+
+Scene 3: Live Application Demo
+
+Here's how it works in practice. Connect your Web3 wallet, browse active governance proposals, and cast your vote. During the commit phase, your vote is encrypted on-chain. After the deadline, you reveal your choice and the smart contract verifies your commitment matches. Everything is transparent and verifiable, yet completely private during voting.
+
+Scene 4: Key Features Highlight
+
+Our system provides four critical guarantees: cryptographic privacy protection, anti-manipulation security, weighted voting power based on token holdings, and blockchain-verified proof of every vote. All running on Ethereum with full smart contract transparency.
+
+Scene 5: Closing & Call to Action
+
+Try the live demo at secure-dao-voting.vercel.app or explore the code on GitHub. Built for the Zama bounty program, advancing privacy-preserving blockchain governance. Secure voting, transparent results, democratic decisions.
