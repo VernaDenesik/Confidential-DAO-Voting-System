@@ -1,506 +1,421 @@
-# Confidential DAO Voting System
+# FHEVM Secure Voting Examples
 
-## December 2025 FHEVM Example - Zama Bounty Track Submission
+A comprehensive system for creating standalone Fully Homomorphic Encryption (FHEVM) voting example repositories with automated documentation generation and scaffolding tools.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Solidity](https://img.shields.io/badge/Solidity-^0.8.24-blue)](https://soliditylang.org/)
-[![Hardhat](https://img.shields.io/badge/Hardhat-Ethereum-orange)](https://hardhat.org/)
+[Video](https://youtu.be/hU3HWDZ_ORI)
 
+[Live Demo](https://youtu.be/hU3HWDZ_ORI)
 
-## 🎯 Project Overview
+## 🎯 Overview
 
-**Confidential DAO Voting System** is a privacy-preserving governance platform that demonstrates secure voting mechanisms for decentralized autonomous organizations. This project implements a cryptographic commit-reveal scheme to eliminate vote manipulation, prevent coercion, and ensure fair democratic decision-making in blockchain-based governance.
+This project provides:
 
-### Core Problem Solved
+- **Base Template**: Complete Hardhat setup for FHEVM voting development
+- **Example Contracts**: Production-ready voting contracts using FHE
+- **Automation Tools**: TypeScript CLI tools to generate standalone repositories
+- **Documentation Generator**: Auto-generate GitBook-formatted guides
+- **Comprehensive Tests**: Full test coverage with detailed documentation
 
-Traditional on-chain voting systems suffer from critical vulnerabilities:
-- **Vote Buying**: Voters can prove their vote choice to buyers
-- **Coercion**: Voters can be forced to vote in specific ways under threat
-- **Strategic Manipulation**: Early results influence remaining voters
-- **Front-Running**: Observers can see votes before casting their own
-- **Privacy Violations**: Individual voting preferences become public knowledge
+## ✨ Features
 
-This system eliminates these vulnerabilities through cryptographic privacy guarantees.
+### Privacy-Preserving Voting
 
-## 🏆 Competition Category
+- Fully Homomorphic Encryption for encrypted vote aggregation
+- Commit-reveal voting mechanism for privacy protection
+- Weighted voting power system
+- Double-vote prevention
+- Gas-optimized operations
 
-**Advanced DAO Governance Pattern** - Demonstrating commit-reveal voting mechanism with weighted voting power and multi-phase execution.
+### Developer-Friendly
 
-## 📹 Video Demonstration
+- Type-safe TypeScript tests
+- NatSpec documentation on all functions
+- Clear code comments explaining FHEVM patterns
+- Comprehensive test suite with best practices
+- Automated example generation
 
-**Duration**: 1 minute
+### Production-Ready
 
-**Link**: [View Demo Video Confidential DAO Voting System.mp4](https://streamable.com/5d82ss)
+- Full error handling
+- Access control mechanisms
+- Emergency pause functionality
+- Secure random nonce generation
+- Audit-friendly code structure
 
-The demonstration video showcases:
-1. Complete voting lifecycle from proposal creation to execution
-2. Commit-reveal mechanism in action
-3. Weighted voting power system
-4. Privacy protection features
-5. User interface interaction flow
+## 📋 Quick Start
 
-## 🔑 Key Features
+### Install Dependencies
 
-### 1. Commit-Reveal Voting Mechanism
-
-**What is Commit-Reveal?**
-The commit-reveal pattern is a cryptographic technique that separates voting into two distinct phases:
-
-- **Phase 1 - Commit**: Voters submit a cryptographic hash of their vote choice combined with a random nonce
-- **Phase 2 - Reveal**: After voting concludes, voters reveal their actual vote and nonce for verification
-
-**Benefits:**
-- ✅ Vote privacy during voting period
-- ✅ Prevention of vote buying (buyers cannot verify vote delivery)
-- ✅ Elimination of strategic voting based on partial results
-- ✅ Protection against coercion attacks
-- ✅ Cryptographic proof of vote integrity
-
-### 2. Weighted Voting Power
-
-**Governance Token Integration**
-- Voting power proportional to token holdings or stake
-- Minimum threshold requirements for proposal creation
-- Batch weight assignment for efficient management
-- Dynamic weight updates by contract owner
-
-**Use Cases:**
-- Token-weighted DAO governance
-- Stake-based decision making
-- Multi-tier membership systems
-- Delegated voting mechanisms
-
-### 3. Proposal Lifecycle Management
-
-**Complete Governance Flow:**
-```
-Proposal Creation → Commit Phase → Reveal Phase → Execution
-     (7 days)        (1 day)      (After reveal)
-```
-
-**Phases:**
-1. **Creation**: Community members with sufficient voting power submit proposals
-2. **Commit**: Voters submit encrypted vote commitments
-3. **Reveal**: Voters prove their votes and choices are tallied
-4. **Execution**: Approved proposals are marked as executed on-chain
-
-### 4. Security Features
-
-- **Double Vote Prevention**: Blockchain-enforced one-vote-per-address
-- **Hash Verification**: Cryptographic proof prevents vote tampering
-- **Time-Lock Enforcement**: Automatic phase transitions
-- **Emergency Controls**: Owner can pause compromised proposals
-- **Gas Optimization**: Efficient data structures minimize costs
-
-## 🏗️ Technical Architecture
-
-### Smart Contract Design
-
-**Contract**: `SecureDAOVoting.sol`
-**Language**: Solidity ^0.8.24
-**Network**: Ethereum (Sepolia Testnet)
-**Framework**: Hardhat
-
-### Core Data Structures
-
-```solidity
-struct Proposal {
-    uint256 id;
-    string title;
-    string description;
-    address creator;
-    uint256 createdAt;
-    uint256 votingEnd;
-    uint256 yesVotes;
-    uint256 noVotes;
-    uint256 totalVoters;
-    bool executed;
-    bool active;
-    mapping(address => bool) hasVoted;
-    mapping(address => bytes32) voteHashes;
-}
-```
-
-### Critical Functions
-
-#### Proposal Management
-```solidity
-createProposal(string title, string description)
-```
-Creates a new governance proposal. Requires minimum voting power threshold.
-
-#### Vote Commitment
-```solidity
-commitVote(uint256 proposalId, bytes32 voteHash)
-```
-Submits encrypted vote commitment. Vote hash = keccak256(vote_choice, nonce, voter_address)
-
-#### Vote Revelation
-```solidity
-revealVote(uint256 proposalId, bool support, uint256 nonce)
-```
-Reveals actual vote with cryptographic proof. Contract verifies hash matches commitment.
-
-#### Execution
-```solidity
-executeProposal(uint256 proposalId)
-```
-Marks proposal as executed based on vote results. Callable after reveal period ends.
-
-### Frontend Architecture
-
-**Technology Stack:**
-- HTML5/CSS3 for responsive UI
-- Vanilla JavaScript for Web3 interaction
-- Ethers.js v6 for blockchain communication
-- MetaMask for wallet integration
-
-**Key Components:**
-- `WalletConnect.jsx`: Web3 wallet connection management
-- `Dashboard.jsx`: Real-time proposal statistics
-- `ProposalsList.jsx`: Active and historical proposals
-- `CreateProposal.jsx`: Proposal submission interface
-- `VotePanel.jsx`: Commit-reveal voting interface
-- `QueryPanel.jsx`: Blockchain state queries
-
-## 📊 Use Cases
-
-### DAO Governance
-- **Protocol Upgrades**: Vote on smart contract improvements and feature additions
-- **Treasury Management**: Approve spending proposals and fund allocation
-- **Parameter Tuning**: Adjust system parameters (fees, limits, timeouts)
-- **Community Grants**: Allocate resources to community initiatives
-
-### Organizational Voting
-- **Board Elections**: Confidential voting for leadership positions
-- **Strategic Planning**: Vote on organizational direction and priorities
-- **Resource Allocation**: Decide budget distribution across departments
-- **Policy Changes**: Approve organizational policies and procedures
-
-### DeFi Applications
-- **Liquidity Mining**: Vote on reward distribution mechanisms
-- **Token Listings**: Community approval for new trading pairs
-- **Fee Structure**: Adjust protocol fees and revenue sharing
-- **Risk Parameters**: Set collateral ratios and liquidation thresholds
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-```bash
-Node.js >= 16.0.0
-npm >= 8.0.0
-MetaMask browser extension
-Sepolia testnet ETH (from faucet)
-```
-
-### Installation
-
-1. **Clone the repository**
-```bash
-git clone https://github.com/VernaDenesik/Confidential-DAO-Voting-System.git
-cd SecureDAOVoting
-```
-
-2. **Install dependencies**
-```bash
-cd daovoting
-npm install
-```
-
-3. **Configure environment**
-Create `.env` file in `daovoting/` directory:
-```env
-PRIVATE_KEY=your_private_key_here
-SEPOLIA_RPC_URL=https://sepolia.infura.io/v3/YOUR_INFURA_KEY
-ETHERSCAN_API_KEY=your_etherscan_api_key
-```
-
-4. **Compile contracts**
-```bash
-npx hardhat compile
-```
-
-5. **Run tests**
-```bash
-npx hardhat test
-```
-
-6. **Deploy to Sepolia**
-```bash
-npx hardhat run scripts/deploy-secure-voting.js --network sepolia
-```
-
-### Frontend Setup
-
-1. **Navigate to root directory**
-```bash
-cd ..
-```
-
-2. **Install frontend dependencies**
 ```bash
 npm install
 ```
 
-3. **Update contract address**
-Edit `src/App.jsx` with your deployed contract address:
-```javascript
-const CONTRACT_ADDRESS = "0xYourContractAddress";
-```
+### Generate an Example
 
-4. **Start development server**
+Generate a standalone voting example:
+
 ```bash
-npm run dev
+npx ts-node scripts/create-fhevm-example.ts fhevm-voting ./my-voting-example
+cd my-voting-example
+npm install
+npm test
 ```
 
-5. **Access application**
-Open `http://localhost:5173` in MetaMask-enabled browser
+### Generate Documentation
+
+Generate GitBook-compatible documentation:
+
+```bash
+npx ts-node scripts/generate-docs.ts fhevm-voting
+npx ts-node scripts/generate-docs.ts --all
+```
+
+### Run Tests on Base Template
+
+```bash
+cd base-template
+npm install
+npm run compile
+npm test
+```
+
+## 📁 Project Structure
+
+```
+fhevm-secure-voting/
+├── base-template/                  # Hardhat template (deployable)
+│   ├── contracts/
+│   │   └── FHEMVoting.sol          # Main voting contract
+│   ├── test/
+│   │   └── FHEMVoting.ts           # Comprehensive tests
+│   ├── deploy/                      # Deployment scripts
+│   ├── hardhat.config.ts           # Hardhat configuration
+│   ├── package.json                # Dependencies
+│   └── tsconfig.json               # TypeScript config
+│
+├── scripts/                         # Automation tools
+│   ├── create-fhevm-example.ts     # Generate standalone repos
+│   ├── generate-docs.ts            # Generate documentation
+│   └── README.md                   # Scripts documentation
+│
+├── examples/                        # Generated documentation
+│   ├── SUMMARY.md                  # GitBook index
+│   └── *.md                        # Example guides
+│
+└── README.md                        # This file
+```
+
+## 🚀 Key Examples
+
+### FHEVM Voting System
+
+**fhevm-voting** - Privacy-preserving governance with encrypted vote tallying
+
+Demonstrates:
+- ✅ Encrypted vote aggregation using FHE.add
+- ✅ Commit-reveal voting for privacy
+- ✅ Weighted voting power
+- ✅ Permission management (FHE.allow, FHE.allowThis)
+- ✅ Access control and emergency functions
+
+Generate with:
+```bash
+npx ts-node scripts/create-fhevm-example.ts fhevm-voting
+```
+
+## 🔑 Core Concepts
+
+### FHEVM Encryption Model
+
+FHEVM uses binding where encrypted values are bound to `[contract, user]` pairs:
+
+1. **Value Encryption**: Encrypt votes locally, bound to specific contract/user
+2. **Input Proofs**: Zero-knowledge proofs attest correct binding
+3. **Permission System**: Both contract and user need FHE permissions
+
+### Critical Patterns
+
+**✅ DO: Grant Both Permissions**
+```solidity
+FHE.allowThis(encryptedVotes);        // Contract permission
+FHE.allow(encryptedVotes, msg.sender); // User permission
+```
+
+**❌ DON'T: Forget allowThis**
+```solidity
+FHE.allow(encryptedVotes, msg.sender); // Missing allowThis - will fail!
+```
+
+**✅ DO: Use Commit-Reveal for Privacy**
+```
+Commit Phase: Submit hash(choice, nonce, voter)
+Reveal Phase: Prove and tally actual vote
+```
+
+**❌ DON'T: Reveal votes directly**
+```
+Direct voting exposes choices - use commit-reveal instead
+```
 
 ## 🧪 Testing
 
-### Test Coverage
+The base template includes comprehensive tests covering:
 
-The project includes comprehensive test suites covering:
+- ✅ Proposal lifecycle management
+- ✅ Voting permissions and access control
+- ✅ Vote commitment and reveal mechanism
+- ✅ FHEVM encrypted operations
+- ✅ Error handling and edge cases
+- ✅ Weighted voting calculations
+- ✅ Emergency pause functionality
 
-- ✅ Proposal creation with voting power validation
-- ✅ Vote commitment hash generation
-- ✅ Commit phase timing enforcement
-- ✅ Reveal phase verification
-- ✅ Vote tallying with weighted power
-- ✅ Double voting prevention
-- ✅ Proposal execution logic
-- ✅ Access control mechanisms
-- ✅ Edge cases and error conditions
+Run tests:
+```bash
+cd base-template
+npm test
+```
 
-### Running Tests
+With coverage:
+```bash
+npm run coverage
+```
+
+## 📚 Documentation
+
+Auto-generated documentation includes:
+
+- Concept explanations
+- Code examples and patterns
+- Test coverage details
+- FHEVM-specific best practices
+- Security considerations
+- Deployment guides
+
+Generate documentation:
+```bash
+npx ts-node scripts/generate-docs.ts fhevm-voting
+```
+
+## 🛠️ Automation Scripts
+
+### create-fhevm-example.ts
+
+Generates complete standalone repositories:
 
 ```bash
-cd daovoting
-npx hardhat test
+npx ts-node scripts/create-fhevm-example.ts <example> [output-dir]
+
+Examples:
+  npx ts-node scripts/create-fhevm-example.ts fhevm-voting ./voting-example
+  npx ts-node scripts/create-fhevm-example.ts fhevm-voting  # Uses default dir
 ```
 
-**Expected Output:**
-```
-  SecureDAOVoting Contract
-    ✓ Should deploy with correct initial state
-    ✓ Should set voter weights correctly
-    ✓ Should create proposals with minimum voting power
-    ✓ Should commit votes with valid hash
-    ✓ Should prevent double voting
-    ✓ Should reveal votes correctly after voting ends
-    ✓ Should execute proposals after reveal period
-    ✓ Should calculate weighted votes correctly
-```
+Creates:
+- Cloned base template
+- Copied contract and test files
+- Updated configuration files
+- Generated README and documentation
+- Deployment scripts
+- .gitignore and environment templates
 
-### Test Coverage Report
+### generate-docs.ts
+
+Generates GitBook documentation from code:
 
 ```bash
-npx hardhat coverage
+npx ts-node scripts/generate-docs.ts [example-name]
+
+Options:
+  --all     Generate all examples
+  --list    List available examples
+  --help    Show help message
+
+Examples:
+  npx ts-node scripts/generate-docs.ts fhevm-voting
+  npx ts-node scripts/generate-docs.ts --all
 ```
 
-## 📖 User Guide
+Generates:
+- Markdown documentation per example
+- SUMMARY.md for GitBook navigation
+- Code examples and patterns
+- Best practices and security notes
+- Testing information
+- Resources and links
 
-### For Voters
+## 🔐 Security Features
 
-**Step 1: Connect Wallet**
-- Install MetaMask browser extension
-- Switch to Sepolia testnet
-- Click "Connect Wallet" button
-- Approve connection in MetaMask
-
-**Step 2: Browse Proposals**
-- View active proposals in main dashboard
-- Read proposal title, description, and creator
-- Check voting deadline and current status
-- Verify your voting power (must be > 0)
-
-**Step 3: Commit Your Vote**
-- Select a proposal in commit phase
-- Choose "Yes" or "No" position
-- System automatically generates random nonce
-- Click "Commit Vote" and approve transaction
-- Save your nonce (required for reveal phase)
-
-**Step 4: Reveal Your Vote**
-- Wait for voting period to end
-- Return to the proposal
-- Enter your saved nonce
-- Select your original vote choice
-- Click "Reveal Vote" and approve transaction
-
-**Step 5: View Results**
-- After reveal period, see final vote tally
-- Check if proposal passed (yes votes > no votes)
-- View execution status
-
-### For Proposal Creators
-
-**Step 1: Ensure Voting Power**
-- Contact DAO administrator to receive voting power
-- Minimum 100 voting power required to create proposals
-- Check your power in dashboard
-
-**Step 2: Create Proposal**
-- Click "Create Proposal" button
-- Enter clear, descriptive title
-- Provide detailed description of proposed action
-- Submit transaction and pay gas fee
-
-**Step 3: Monitor Progress**
-- Track vote commitments during voting period
-- Monitor reveal rate after voting ends
-- Check final results after reveal period
-
-**Step 4: Execute (if passed)**
-- Click "Execute Proposal" after reveal period
-- Proposal marked as executed on blockchain
-- Implement approved changes off-chain
-
-## 🔐 Security Considerations
+### Vote Privacy
+- Encrypted vote aggregation
+- Commit-reveal mechanism
+- Only authorized users can access encrypted values
 
 ### Cryptographic Security
-
-**Hash Function**: Keccak-256 (SHA-3)
-- Collision resistant
-- Pre-image resistant
-- Used for vote commitments
-
-**Nonce Generation**: Cryptographically secure random values
-- Prevents hash prediction
-- Should be unique per vote
-- Must be saved for reveal phase
-
-**Vote Hash Formula**:
-```
-hash = keccak256(abi.encodePacked(support, nonce, msg.sender))
-```
+- Keccak-256 hashing for commitments
+- Secure random nonce generation
+- Hash verification prevents tampering
 
 ### Smart Contract Security
-
-**Access Controls**:
-- Owner-only functions for system management
-- Voter-only functions for proposal creation
-- Public functions for viewing data
-
-**Validation Checks**:
-- Input parameter validation
-- State transition verification
-- Time-based access control
-- Duplicate prevention
-
-**Emergency Mechanisms**:
-- Proposal pause functionality
-- Voting system toggle
+- Owner-only administrative functions
+- State validation throughout phases
+- Double-voting prevention
+- Emergency pause functionality
 - No fund custody (no reentrancy risk)
 
-### Best Practices
+## 🚢 Deployment
 
-**For Users**:
-- ✅ Save your nonce immediately after committing
-- ✅ Use strong random nonces (never reuse)
-- ✅ Verify contract address before interaction
-- ✅ Keep private keys secure
-- ✅ Test with small amounts first
+### Local Testing
 
-**For Developers**:
-- ✅ Audit contract code before mainnet deployment
-- ✅ Use hardware wallets for owner account
-- ✅ Implement time-locks for critical changes
-- ✅ Monitor contract events for suspicious activity
-- ✅ Maintain emergency response procedures
+```bash
+cd base-template
+npx hardhat node
+```
 
-## 🎓 Educational Value
+### Deploy to Sepolia Testnet
 
-### Concepts Demonstrated
+1. Create `.env`:
+```env
+PRIVATE_KEY=your_private_key
+SEPOLIA_RPC_URL=https://sepolia.infura.io/v3/YOUR_KEY
+ETHERSCAN_API_KEY=your_etherscan_key
+```
 
-1. **Commit-Reveal Pattern**: Two-phase cryptographic voting
-2. **Hash Functions**: Keccak-256 for vote commitments
-3. **Time-Locked Execution**: Block timestamp-based phase transitions
-4. **Weighted Voting**: Token-based governance power
-5. **Event Emissions**: Blockchain event logging for transparency
-6. **Access Control**: Role-based function restrictions
-7. **Gas Optimization**: Efficient data structures and operations
+2. Deploy:
+```bash
+cd base-template
+npx hardhat run scripts/deploy.ts --network sepolia
+```
 
-### Learning Outcomes
+3. Verify:
+```bash
+npx hardhat verify --network sepolia CONTRACT_ADDRESS
+```
 
-After studying this project, developers will understand:
-- How to implement privacy-preserving voting on blockchain
-- Cryptographic commit-reveal pattern application
-- Ethereum smart contract development with Hardhat
-- Web3 frontend integration with Ethers.js
-- Testing methodologies for smart contracts
-- Deployment workflows for Ethereum networks
+## 📖 Development Workflow
 
-## 🛣️ Roadmap
+### Creating a Custom Example
 
-### Completed ✅
-- [x] Core commit-reveal voting mechanism
-- [x] Weighted voting power system
-- [x] Web3 frontend interface
-- [x] Comprehensive testing suite
-- [x] Sepolia testnet deployment
-- [x] Documentation and user guides
+1. **Clone Base Template**
+```bash
+npx ts-node scripts/create-fhevm-example.ts fhevm-voting ./my-custom-voting
+```
 
-### Future Enhancements 🚀
-- [ ] Integration with FHEVM for true vote privacy
-- [ ] Delegation mechanisms for representative voting
-- [ ] Quadratic voting support
-- [ ] Multi-signature proposal execution
-- [ ] IPFS integration for proposal storage
-- [ ] Governance token integration (ERC20)
-- [ ] Mobile-responsive redesign
-- [ ] Mainnet deployment after security audit
+2. **Modify Contracts**
+```bash
+cd my-custom-voting
+# Edit contracts/FHEMVoting.sol
+```
+
+3. **Update Tests**
+```bash
+# Edit test/FHEMVoting.ts
+npm test
+```
+
+4. **Add Documentation**
+```bash
+# Tests and comments generate documentation automatically
+```
+
+### Testing Your Modifications
+
+```bash
+cd base-template
+npm run compile
+npm test
+npm run lint
+npm run coverage
+```
+
+## 🎓 Learning Resources
+
+### FHEVM Concepts
+
+1. **Fully Homomorphic Encryption**: Encrypt data, compute on it, decrypt results
+2. **Commit-Reveal Pattern**: Two-phase voting for privacy and integrity
+3. **Encrypted Arithmetic**: FHE.add for accumulating encrypted votes
+4. **Permission System**: FHE.allow controls decryption access
+
+### External Resources
+
+- [FHEVM Documentation](https://docs.zama.ai/fhevm)
+- [FHEVM GitHub](https://github.com/zama-ai/fhevm)
+- [Zama Community](https://www.zama.ai/community)
+- [Zama Discord](https://discord.com/invite/zama)
+- [Zama Blog](https://www.zama.ai/blog)
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please follow these steps:
+Contributions are welcome! When adding examples:
 
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Open Pull Request
+1. **Follow existing patterns** and structure
+2. **Include comprehensive comments** explaining FHEVM concepts
+3. **Demonstrate both** correct usage and common pitfalls
+4. **Update automation scripts** to include new examples
+5. **Test generated standalone** repository thoroughly
+6. **Verify documentation** renders correctly
 
-### Development Guidelines
+## 📝 Best Practices
 
-- Write comprehensive tests for new features
-- Follow Solidity style guide
-- Document code with NatSpec comments
-- Update README with new functionality
-- Ensure all tests pass before PR
+### For Smart Contract Development
+
+- Always use both `FHE.allowThis()` and `FHE.allow()`
+- Verify vote commitments before tallying
+- Use cryptographically secure random nonces
+- Document all FHEVM-specific patterns
+- Test encrypted operations thoroughly
+
+### For Testing
+
+- Test success cases (✅) and failures (❌)
+- Include edge cases and boundary conditions
+- Use descriptive test names
+- Comment complex test setups
+- Verify event emissions
+
+### For Documentation
+
+- Use JSDoc/TSDoc comments
+- Document FHEVM patterns clearly
+- Include code examples
+- Explain security implications
+- Provide learning resources
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+BSD-3-Clause-Clear License
+
+All code in this repository is licensed under the BSD-3-Clause-Clear license, which is compatible with the GPL and free for personal and commercial use.
 
 ## 🙏 Acknowledgments
 
-- **Zama Team**: For organizing the FHEVM bounty program
-- **OpenZeppelin**: For secure smart contract patterns
+- **Zama Team**: For creating FHEVM and organizing the bounty program
+- **OpenZeppelin**: For smart contract security patterns
 - **Hardhat Team**: For excellent development framework
 - **Ethereum Community**: For blockchain infrastructure
 
-## 📞 Contact & Support
+## 📞 Support & Community
 
-- **GitHub**: [VernaDenesik/Confidential-DAO-Voting-System](https://github.com/VernaDenesik/Confidential-DAO-Voting-System)
-- **Live Demo**: [https://confidential-dao-voting-system.vercel.app/](https://confidential-dao-voting-system.vercel.app/)
-- **Documentation**: See `docs/` folder for detailed guides
-- **Issues**: Report bugs via GitHub Issues
+- **GitHub Issues**: Report bugs and feature requests
+- **Zama Community Forum**: https://www.zama.ai/community
+- **Discord Server**: https://discord.com/invite/zama
+- **Zama on Twitter**: https://twitter.com/zama
 
 ## ⚠️ Disclaimer
 
-This software is provided "as is", without warranty of any kind, express or implied. This is experimental software intended for educational and development purposes.
+This software is experimental and provided "as is" without warranty. It is intended for educational and development purposes.
 
-**Important Notes**:
-- Currently deployed on testnet only
-- Not audited for mainnet production use
-- Users are responsible for their own private key security
-- Always verify contract code before interacting with real funds
-- No liability for losses incurred through usage
+**Important Notes:**
+- Contracts not audited for mainnet production use
+- Always test thoroughly before deployment
+- Users responsible for private key security
+- Verify contract code before interaction
+- No liability for losses from usage
 
 ---
 
-**Built with ❤️ for the Zama FHEVM Bounty Program - December 2025**
+**Built for the Zama FHEVM Bounty Program**
 
-*Advancing privacy-preserving blockchain governance*
+*Advancing privacy-preserving blockchain governance with Fully Homomorphic Encryption*
+
+Generated with TypeScript automation and comprehensive documentation.
