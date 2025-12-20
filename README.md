@@ -4,7 +4,7 @@ A comprehensive system for creating standalone Fully Homomorphic Encryption (FHE
 
 [Video](https://youtu.be/hU3HWDZ_ORI)
 
-[Live Demo](https://youtu.be/hU3HWDZ_ORI)
+[Live Demo](https://confidential-dao-voting-system.vercel.app/)
 
 ## 🎯 Overview
 
